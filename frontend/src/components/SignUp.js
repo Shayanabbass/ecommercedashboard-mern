@@ -6,8 +6,13 @@ import { useNavigate } from "react-router-dom";
 
 
 const SignUp = () => {
-    const navigate = useNavigate();
-
+    const navigate=useNavigate();
+    // useEffect(()=>{
+    //     const auth=sessionStorage.getItem('user');
+    //     if(auth){
+    //         navigate('/');
+    //     }
+    // })
     const [username,setName]=useState("");
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
@@ -28,7 +33,7 @@ const SignUp = () => {
             alert("User Successfully registered");
             sessionStorage.setItem('user',JSON.stringify(result))
             navigate('/');
-        }
+        }   
         else if(result.status===402){
             alert("User already exsisit");
 

@@ -2,7 +2,7 @@ import './App.css';
 import Nav from './components/Nav';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
-import Privatecomponent from './components/Privatecomponent';
+import {Privatecomponent,Signupprivate} from './components/Privatecomponent';
 
 function App() {
   return (
@@ -17,7 +17,9 @@ function App() {
         <Route path='/logout' element={<h1>Logout</h1>}></Route>
         <Route path='/profile' element={<h1>Profile</h1>}></Route>
         </Route>
+        <Route element={<Signupprivate/>}>
         <Route path='/signup' element={<SignUp/>}></Route>
+        </Route>
       </Routes>
       </BrowserRouter>
       <h3>{SignUp.profile}</h3>
