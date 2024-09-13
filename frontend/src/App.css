@@ -103,6 +103,11 @@ span.buttonText {
   /* Use the Roboto font that is loaded in the <head> */
   font-family: 'Roboto', sans-serif;
 }
+.second-list{
+  text-align:end;
+  padding-right: 15px;
+
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

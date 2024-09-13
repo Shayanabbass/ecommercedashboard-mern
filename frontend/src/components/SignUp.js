@@ -3,21 +3,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useGoogleLogin , googleLogout } from '@react-oauth/google';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { saveuserdetails } from "../actions/userActions";
 
 
 const SignUp = () => {
+    const dispatch = useDispatch();
+
     const navigate=useNavigate();
-    // useEffect(()=>{
-    //     const auth=sessionStorage.getItem('user');
-    //     if(auth){
-    //         navigate('/');
-    //     }
-    // })
+    
     const [username,setName]=useState("");
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const data=async ()=>{
         console.log(JSON.stringify({username,email,password}));
+        if (username===""){
+            alert("Please enter the username");
+            
+        }
+        else if (email===""){
+            alert("Please enter the Email");
+            
+        }
+        else if(password===""){
+            alert("Please enter the Email");
+        }
+        else{
         let result= await fetch('http://localhost:4000/register',{
             method:'post',
             body:JSON.stringify({username,email,password}),
@@ -26,13 +37,14 @@ const SignUp = () => {
             },
 
         });
+    
 
         if(result.status===200){
+            dispatch(saveuserdetails(email, password));
             result=await result.json();
             console.log(result);
-            alert("User Successfully registered");
-            sessionStorage.setItem('user',JSON.stringify(result))
-            navigate('/');
+            alert("OTP sent to you email");
+            navigate('/otp');
         }   
         else if(result.status===402){
             alert("User already exsisit");
@@ -40,7 +52,7 @@ const SignUp = () => {
         }
         
     }
-    
+}
 
 
     const [user, setUser] = useState(null);
@@ -74,14 +86,7 @@ const SignUp = () => {
         setProfile(null);
     };
 
-    // const responseMessage = (response) => {
-    //     console.log(response);
-    // };
-
-    // const errorMessage = (error) => {
-    //     console.log(error);
-    // };
-
+    
     return (
         <div className="container mt-5 signup">
             <div className="text-center mb-4 heading">
@@ -109,10 +114,10 @@ const SignUp = () => {
                         </div>
                     ) : (
                         <div id="gSignInWrapper" onClick={login}>
-                        <div id="customBtn" class="customGPlusSignIn">
+                        <div id="customBtn" className="customGPlusSignIn">
                         
-                          <span class="icon"></span>
-                          <span class="buttonText">Sign In</span>
+                          <span className="icon"></span>
+                          <span className="buttonText">Sign In</span>
                         </div>
                       </div>
                         // <button onClick={login}>Sign in with Google 🚀 </button>

@@ -9,6 +9,15 @@ const Schema=new mongoose.Schema({
     },
     password:{
         type:String
+    },
+    otp:{
+        type:String
+    },
+    otpExpiration:{
+        type:String
+    },
+    isVerified:{
+        type:Boolean
     }
 })
 const usermodel= mongoose.model('users',Schema)
