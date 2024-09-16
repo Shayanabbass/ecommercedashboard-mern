@@ -135,4 +135,26 @@ app.delete('/deleteproduct/:_id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+app.put('/updateproduct/:_id', async (req, res) => {
+    try {
+        // Get the product ID from the URL
+        const objectId = new mongoose.Types.ObjectId(req.params._id);
+        console.log(objectId);
+        
+
+        // Update the product with the new data
+        const result = await product.updateOne(
+            { _id: objectId },
+            { $set: req.body } // Set the new values from the request body
+        );
+
+        if (result.modifiedCount> 0) {
+            res.status(200).json({ message: "Product updated successfully",result });
+        } else {
+            res.status(404).json({ message: "Product not found or no changes made",result });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 app.listen(4000);
